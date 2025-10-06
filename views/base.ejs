@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dein Minimal-Blog | <%= title %></title>
+    <link href="/css/main.css" rel="stylesheet"> 
+    
+    <style>
+        body {
+            /* Für einen sauberen, klaren Look */
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen antialiased">
+    
+    <%- include('partials/header.ejs') %>
+
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <%- body %> 
+    </main>
+
+    <footer class="mt-20 py-8 text-center border-t border-gray-200">
+        <p class="text-sm text-gray-500">
+            &copy; <%= new Date().getFullYear() %> Dein Blog. Alle Rechte vorbehalten.
+        </p>
+    </footer>
+
+</body>
+</html>

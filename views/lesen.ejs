@@ -1,0 +1,19 @@
+<main class="py-16">
+    <article class="max-w-4xl mx-auto px-6">
+        
+        <header class="mb-10">
+            <h1 class="text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+                <%= post.title %>
+            </h1>
+            <p class="text-lg text-gray-600 border-b border-gray-200 pb-6">
+                Von **Dein Name** | <%= post.date %> | 
+                <span class="text-sm uppercase text-blue-600"><%= post.category %></span>
+            </p>
+        </header>
+
+        <div class="prose prose-lg lg:prose-xl max-w-none">
+            <%- post.content %>
+        </div>
+        
+    </article>
+</main>

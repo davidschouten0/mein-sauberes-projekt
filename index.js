@@ -1,39 +1,70 @@
-// 1. Lade das Express-Paket, das wir installiert haben.
 const express = require('express');
-const path = require('path'); // Ein Helfer, um mit Dateipfaden zu arbeiten.
+const path = require('path');
+const expressLayouts = require('express-ejs-layouts'); 
+const { title } = require('process');
 
-// 2. Erstelle eine Express-Anwendung (unseren Server).
+// 1. ERSTELLE DIE EXPRESS-ANWENDUNG ZUERST!
 const app = express();
-const PORT = 3000; // Der "Kanal" oder "Port", auf dem unser Server lauscht.
+const PORT = 3000; 
 
-// 3. Middleware: Erlaube dem Server, einfache Formulardaten zu lesen.
-app.use(express.urlencoded({ extended: true }));
+// 2. KONFIGURATION (Setups in einem Block):
 
-// 4. Sage Express, dass es statische Dateien (CSS, Bilder) aus einem 'public' Ordner laden soll.
+// Sag Express, wo die EJS-Dateien liegen (views)
+app.set('view engine', 'ejs'); 
+
+// Aktiviere den Layout-Helfer
+app.use(expressLayouts); 
+
+// Sag dem Layout-Helfer, welche Datei dein Basis-Template ist:
+// (Express sucht automatisch nach views/base.ejs)
+app.set('layout', 'base'); 
+
+// 3. MIDDLEWARE (Helfer-Funktionen):
+
+// Erlaube das Lesen von statischen Dateien (CSS, JS, Bilder)
 app.use(express.static('public'));
 
-app.set('view engine', 'ejs');
+// Erlaube dem Server, einfache Formulardaten zu lesen
+app.use(express.urlencoded({ extended: true }));
 
-// Ein temporärer Speicher für unsere Blog-Posts
-let posts = [];
 
-// 5. Definiere eine "Route": Was passiert, wenn jemand die Startseite ('/') besucht?
+// 4. DATEN (Dein temporärer Speicher):
+let posts = [
+    { 
+        id: 1, 
+        title: "Test-Post #1", 
+        excerpt: "Dieser Beitrag ist nur zum Testen des Layouts da.",
+        category: "Test",
+        imageUrl: "https://via.placeholder.com/600x400"
+    },
+    { 
+        id: 2, 
+        title: "Test-Post #2", 
+        excerpt: "Super wichtig für das Debugging!",
+        category: "Debugging",
+        imageUrl: "https://via.placeholder.com/600x400"
+    }
+];
+
+// 5. ROUTEN (Was passiert, wenn die URL aufgerufen wird?):
+
+// Startseite ('/')
 app.get('/', (req, res) => {
-    res.render('index', { posts: posts });
+    res.render('index', { posts: posts, title: 'Startseite'});
 });
 
-// 6. Definiere eine Route für das Hochladen (wenn das Formular gesendet wird)
+// Route für das Hochladen (Posten eines Formulars)
 app.post('/upload', (req, res) => {
     const newPost = {
         title: req.body.title,
         content: req.body.content
     };
-    posts.unshift(newPost); // Füge den neuen Post am Anfang der Liste hinzu
+    posts.unshift(newPost);
 
-    res.redirect('/'); // Leite den Benutzer zurück zur Startseite
+    res.redirect('/');
 });
 
-// 7. Starte den Server und lass ihn auf Anfragen warten.
+// 6. SERVER STARTEN:
 app.listen(PORT, () => {
     console.log(`🚀 Server läuft auf http://localhost:${PORT}`);
 });

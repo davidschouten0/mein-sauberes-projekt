@@ -1,0 +1,24 @@
+/* In deiner globalen CSS-Datei, z.B. src/index.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+  --bg-dark: 0.1 0.02 98;
+  --bg: 0.15 0.02 98;
+  --bg-light: 0.2 0.02 98;
+  --text: 0.96 0.04 98;
+  --text-muted: 0.76 0.04 98;
+  --highlight: 0.5 0.04 98;
+  --border: 0.4 0.04 98;
+  --border-muted: 0.3 0.04 98;
+  --primary: 0.76 0.1 98;
+  --secondary: 0.76 0.1 278;
+  --danger: 0.7 0.05 30;
+  --warning: 0.7 0.05 100;
+  --success: 0.7 0.05 160;
+  --info: 0.7 0.05 260;
+    }
+}
